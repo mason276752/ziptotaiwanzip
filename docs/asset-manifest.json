@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/ziptotaiwanzip/static/css/main.51d51b0d.chunk.css",
-    "main.js": "/ziptotaiwanzip/static/js/main.f8837385.chunk.js",
-    "main.js.map": "/ziptotaiwanzip/static/js/main.f8837385.chunk.js.map",
+    "main.js": "/ziptotaiwanzip/static/js/main.5a693e72.chunk.js",
+    "main.js.map": "/ziptotaiwanzip/static/js/main.5a693e72.chunk.js.map",
     "runtime-main.js": "/ziptotaiwanzip/static/js/runtime-main.5c172db1.js",
     "runtime-main.js.map": "/ziptotaiwanzip/static/js/runtime-main.5c172db1.js.map",
-    "static/js/2.ff107703.chunk.js": "/ziptotaiwanzip/static/js/2.ff107703.chunk.js",
-    "static/js/2.ff107703.chunk.js.map": "/ziptotaiwanzip/static/js/2.ff107703.chunk.js.map",
+    "static/js/2.81ec8ab8.chunk.js": "/ziptotaiwanzip/static/js/2.81ec8ab8.chunk.js",
+    "static/js/2.81ec8ab8.chunk.js.map": "/ziptotaiwanzip/static/js/2.81ec8ab8.chunk.js.map",
     "index.html": "/ziptotaiwanzip/index.html",
-    "precache-manifest.c3f088e03f1ce16b0a2f3f081831ad8a.js": "/ziptotaiwanzip/precache-manifest.c3f088e03f1ce16b0a2f3f081831ad8a.js",
+    "precache-manifest.6a25795c823614d96610683636a5cfd6.js": "/ziptotaiwanzip/precache-manifest.6a25795c823614d96610683636a5cfd6.js",
     "service-worker.js": "/ziptotaiwanzip/service-worker.js",
     "static/css/main.51d51b0d.chunk.css.map": "/ziptotaiwanzip/static/css/main.51d51b0d.chunk.css.map",
-    "static/js/2.ff107703.chunk.js.LICENSE.txt": "/ziptotaiwanzip/static/js/2.ff107703.chunk.js.LICENSE.txt",
+    "static/js/2.81ec8ab8.chunk.js.LICENSE.txt": "/ziptotaiwanzip/static/js/2.81ec8ab8.chunk.js.LICENSE.txt",
     "static/media/logo.svg": "/ziptotaiwanzip/static/media/logo.5d5d9eef.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.5c172db1.js",
-    "static/js/2.ff107703.chunk.js",
+    "static/js/2.81ec8ab8.chunk.js",
     "static/css/main.51d51b0d.chunk.css",
-    "static/js/main.f8837385.chunk.js"
+    "static/js/main.5a693e72.chunk.js"
   ]
 }
