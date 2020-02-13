@@ -100,7 +100,7 @@ function App() {
           const rawfile = e.target.files[0];
           if (!rawfile) return
           const fileName = rawfile.name;
-          if (/zip/.test(fileName)) {
+          if (/zip|epub/.test(fileName)) {
             let jszip = new Jszip()
             jszip = await jszip.loadAsync(rawfile);
             jszip = await zipTransfer(jszip, taiwan, setPath)
