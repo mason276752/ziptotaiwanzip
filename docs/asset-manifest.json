@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/ziptotaiwanzip/static/css/main.79bbf13a.chunk.css",
-    "main.js": "/ziptotaiwanzip/static/js/main.c4ac188c.chunk.js",
-    "main.js.map": "/ziptotaiwanzip/static/js/main.c4ac188c.chunk.js.map",
+    "main.js": "/ziptotaiwanzip/static/js/main.e36c77dc.chunk.js",
+    "main.js.map": "/ziptotaiwanzip/static/js/main.e36c77dc.chunk.js.map",
     "runtime-main.js": "/ziptotaiwanzip/static/js/runtime-main.5c172db1.js",
     "runtime-main.js.map": "/ziptotaiwanzip/static/js/runtime-main.5c172db1.js.map",
     "static/js/2.84c30f90.chunk.js": "/ziptotaiwanzip/static/js/2.84c30f90.chunk.js",
     "static/js/2.84c30f90.chunk.js.map": "/ziptotaiwanzip/static/js/2.84c30f90.chunk.js.map",
     "index.html": "/ziptotaiwanzip/index.html",
-    "precache-manifest.85015c4b979c0282befa269a47fda841.js": "/ziptotaiwanzip/precache-manifest.85015c4b979c0282befa269a47fda841.js",
+    "precache-manifest.0ae09baa2878b69290ccf2e16a019ad2.js": "/ziptotaiwanzip/precache-manifest.0ae09baa2878b69290ccf2e16a019ad2.js",
     "service-worker.js": "/ziptotaiwanzip/service-worker.js",
     "static/css/main.79bbf13a.chunk.css.map": "/ziptotaiwanzip/static/css/main.79bbf13a.chunk.css.map",
     "static/js/2.84c30f90.chunk.js.LICENSE.txt": "/ziptotaiwanzip/static/js/2.84c30f90.chunk.js.LICENSE.txt",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.5c172db1.js",
     "static/js/2.84c30f90.chunk.js",
     "static/css/main.79bbf13a.chunk.css",
-    "static/js/main.c4ac188c.chunk.js"
+    "static/js/main.e36c77dc.chunk.js"
   ]
 }

@@ -48,9 +48,12 @@ async function zipTransfer(jszip, taiwan = true, callback = console.log) {
         }
         return false
       })
-      let comment = await jszip.file(path).async("string");
+      let comment;
       if (ext) { // 副檔名匹配轉換內容
+        comment = await jszip.file(path).async("string");
         comment = transfer(comment)
+      }else{
+        comment = await jszip.file(path).async("uint8array");
       }
       if (path !== path2) { // 原路徑刪除
         jszip = jszip.remove(path)
