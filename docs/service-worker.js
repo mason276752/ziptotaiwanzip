@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/ziptotaiwanzip/precache-manifest.0ae09baa2878b69290ccf2e16a019ad2.js"
+  "/ziptotaiwanzip/precache-manifest.8fa9bfad1fe27de3c9802c5172b7e3c5.js"
 );
 
 self.addEventListener('message', (event) => {

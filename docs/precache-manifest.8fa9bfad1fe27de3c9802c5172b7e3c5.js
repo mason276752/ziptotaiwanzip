@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "089400b6447d3be15ba62e732815dd4d",
+    "revision": "7400109b8d0993d5c9703a78ca42d25d",
     "url": "/ziptotaiwanzip/index.html"
   },
   {
-    "revision": "8705bd07ab09c733a381",
+    "revision": "257a9a90083c46512d2d",
     "url": "/ziptotaiwanzip/static/css/main.79bbf13a.chunk.css"
   },
   {
-    "revision": "3f29b3436f294c370f1b",
-    "url": "/ziptotaiwanzip/static/js/2.84c30f90.chunk.js"
+    "revision": "b48f7d5eb30b81fc9057",
+    "url": "/ziptotaiwanzip/static/js/2.7612b524.chunk.js"
   },
   {
     "revision": "f32f3f2739f945f6e8e72f406ee3a70f",
-    "url": "/ziptotaiwanzip/static/js/2.84c30f90.chunk.js.LICENSE.txt"
+    "url": "/ziptotaiwanzip/static/js/2.7612b524.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "8705bd07ab09c733a381",
-    "url": "/ziptotaiwanzip/static/js/main.e36c77dc.chunk.js"
+    "revision": "257a9a90083c46512d2d",
+    "url": "/ziptotaiwanzip/static/js/main.4754216d.chunk.js"
   },
   {
     "revision": "6276ba8f4aeb217715d3",

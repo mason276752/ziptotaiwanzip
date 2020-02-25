@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, createRef } from 'react';
 import opencc from 'node-opencc'
 import { Helmet } from 'react-helmet';
 import { saveAs } from 'file-saver'
+import { debounce } from 'debounce'
 import logo from './logo.svg';
 import './App.css';
 import Jszip from 'jszip'
@@ -52,7 +53,7 @@ async function zipTransfer(jszip, taiwan = true, callback = console.log) {
       if (ext) { // 副檔名匹配轉換內容
         comment = await jszip.file(path).async("string");
         comment = transfer(comment)
-      }else{
+      } else {
         comment = await jszip.file(path).async("uint8array");
       }
       if (path !== path2) { // 原路徑刪除
@@ -66,13 +67,16 @@ async function zipTransfer(jszip, taiwan = true, callback = console.log) {
 }
 
 function App() {
+  const ref = createRef();
   const [path, setPath] = useState("檔案或ZIP文字內容轉換簡繁體工具");
   const [taiwan, setTaiwan] = useState(true);
+  const [textarea, setTextarea] = useState('');
+  const func = taiwan ? opencc.simplifiedToTaiwanWithPhrases : opencc.taiwanToSimplifiedWithPhrases;
   const templateStr = (flag) => `
   <p>鑑於${flag ? '簡體字' : '繁體字'}和用語不合使用習慣，做了一個將目錄內容全轉換為${flag ? '臺灣繁體' : '簡體中文'}工具</p>
   <p>先將目錄ZIP打包後，點擊網頁內選擇檔案，處理完成後自動下載，檔名為 ${flag ? 'tw_' : 'cn_'}原名稱.zip <a href="./test.zip">範例.zip</a></p>
   <p>用途舉例：不幸的交接到${flag ? '簡體' : '繁體'}專案、或clone到${flag ? '簡體' : '繁體'}字做的程式專案${flag ? '(GitHub上一堆)' : ''}</p>
-  <p>使用 React , node-opencc 文字轉換，jszip 存取zip，file-saver 檔案下載</p>
+  <p>使用 React , node-opencc 文字轉換，jszip 存取zip，file-saver 檔案下載，debounce 節流處理</p>
   <p>現在單一檔案亦支援</p>
   
 `
@@ -83,7 +87,12 @@ function App() {
     setTaiwan(taiwan)
     setText(func(templateStr(taiwan)))
     setPath(func(path))
+    setTextarea(func(textarea))
+    
   }
+  const textareaChange=debounce((target) => {
+    setTextarea(func(target.value))
+  }, 800)
   return (
     <div className="App">
       <Helmet>
@@ -92,7 +101,31 @@ function App() {
         <link rel="icon" href={`${packageJson.homepage}${taiwan ? 'favicon.ico' : 'favicon2.ico'}`}></link>
       </Helmet>
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <textarea
+          placeholder="Text Plain"
+          rows="10"
+          style={{ width: 'calc(100% - 50px)' }}
+          onChange={(e) => textareaChange(e.target)}>
+        </textarea>
+        <textarea
+          placeholder="Click Copy Button to Copy"
+          rows="10"
+          style={{ width: 'calc(100% - 50px)' }}
+          value={textarea}
+          ref={ref}
+          disabled>
+        </textarea>
+        <button
+          style={{ width: 'calc(100% - 50px)', fontSize: '20px' }}
+          onClick={(e) => {
+            const range = window.document.createRange();
+            range.selectNode(ref.current)
+            const selection = window.document.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            document.execCommand('copy')
+            alert(textarea)
+          }}>Copy</button>
         <label>臺灣繁體化
         <input type="radio" value={"1"} name="flag" checked={taiwan} onChange={changeFlag} />
         </label>
