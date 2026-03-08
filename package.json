@@ -2,29 +2,33 @@
   "name": "ziptotaiwanzip",
   "version": "0.1.0",
   "private": false,
-  "homepage": "https://lursun.github.io/ziptotaiwanzip/",
+  "homepage": "https://mason276752.github.io/ziptotaiwanzip/",
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.4.0",
-    "@testing-library/user-event": "^7.2.1",
-    "debounce": "^1.2.0",
-    "file-saver": "^2.0.2",
-    "jszip": "^3.2.2",
+    "debounce": "^2.1.0",
+    "file-saver": "^2.0.5",
+    "jszip": "^3.10.1",
     "node-opencc": "^2.0.1",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-dropzone": "^10.2.1",
-    "react-helmet": "^5.2.1",
-    "react-scripts": "3.3.1"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-dropzone": "^14.3.8",
+    "react-helmet-async": "^2.0.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/file-saver": "^2.0.7",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.2.0"
   },
   "scripts": {
-    "start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
-    "build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "type-check": "tsc --noEmit"
   },
   "browserslist": {
     "production": [
