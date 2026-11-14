@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import opencc from 'node-opencc'
 import { Helmet } from 'react-helmet-async'
 import { saveAs } from 'file-saver'
@@ -126,6 +126,41 @@ function App() {
       reader.readAsText(rawfile)
     }
   }
+
+  // The channel listener lives for the whole page, so read the current mode through a ref.
+  const fileTransferRef = useRef(fileTransfer)
+  fileTransferRef.current = fileTransfer
+
+  // paste2jpg (same origin on GitHub Pages) hands over its images as a zip. We announce this
+  // tab so it knows where to send, and only take zips addressed to us.
+  useEffect(() => {
+    if (typeof BroadcastChannel === 'undefined') return
+    const id = crypto.randomUUID()
+    const channel = new BroadcastChannel('ziptotaiwanzip')
+    const announce = () => channel.postMessage({ type: 'ready', id })
+    const bye = () => channel.postMessage({ type: 'bye', id })
+    const onShow = (e: PageTransitionEvent) => {
+      if (e.persisted) announce()
+    }
+    channel.onmessage = (e: MessageEvent) => {
+      const msg = e.data
+      if (msg?.type === 'ping') {
+        announce()
+      } else if (msg?.type === 'zip' && msg.to === id && msg.file instanceof File) {
+        channel.postMessage({ type: 'received', id: msg.id })
+        fileTransferRef.current(msg.file)
+      }
+    }
+    window.addEventListener('pagehide', bye)
+    window.addEventListener('pageshow', onShow)
+    announce()
+    return () => {
+      window.removeEventListener('pagehide', bye)
+      window.removeEventListener('pageshow', onShow)
+      bye()
+      channel.close()
+    }
+  }, [])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: (acceptedFiles) => {
