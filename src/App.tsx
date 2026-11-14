@@ -158,9 +158,9 @@ function App() {
   const fileTransferRef = useRef(fileTransfer)
   fileTransferRef.current = fileTransfer
 
-  // paste2jpg and zipeditor (same origin on GitHub Pages) hand over zips. We announce this tab
-  // so they know where to send, and only take zips addressed to us. A zip with replyTo goes
-  // back to its sender once converted instead of being downloaded.
+  // zipeditor (same origin on GitHub Pages) hands over zips. We announce this tab so it knows
+  // where to send, and only take zips addressed to us. A zip with replyTo goes back to its
+  // sender once converted instead of being downloaded.
   useEffect(() => {
     if (typeof BroadcastChannel === 'undefined') return
     const id = crypto.randomUUID()
