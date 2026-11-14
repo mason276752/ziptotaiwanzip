@@ -65,6 +65,33 @@ function isTextFile(fileName: string): boolean {
   return textplain.some((tp) => fileName.slice(-tp.length) === tp)
 }
 
+type Deliver = (blob: Blob, name: string) => void
+
+// Hands a converted zip back to the tab that asked for it (zipeditor's 簡繁轉換), or downloads
+// it as usual if that tab doesn't ack within a few seconds.
+function sendBack(reply: { app: string; to: string }, requestId: string, blob: Blob, name: string) {
+  const channel = new BroadcastChannel(reply.app)
+  const id = crypto.randomUUID()
+  const timer = setTimeout(() => {
+    channel.close()
+    saveAs(blob, name)
+  }, 3000)
+  channel.onmessage = (e: MessageEvent) => {
+    if (e.data?.type === 'received' && e.data.id === id) {
+      clearTimeout(timer)
+      channel.close()
+    }
+  }
+  channel.postMessage({
+    type: 'zip',
+    to: reply.to,
+    id,
+    from: 'ziptotaiwanzip',
+    inReplyTo: requestId,
+    file: new File([blob], name, { type: 'application/zip' }),
+  })
+}
+
 function App() {
   const [taiwan, setTaiwan] = useState(true)
   const [inputText, setInputText] = useState('')
@@ -95,7 +122,7 @@ function App() {
     if (inputText) setOutputText(transfer(inputText))
   }
 
-  async function fileTransfer(rawfile: File) {
+  async function fileTransfer(rawfile: File, deliver: Deliver = saveAs) {
     const fileName = rawfile.name
     setStatusMsg('')
     if (/zip|epub/.test(fileName)) {
@@ -113,14 +140,14 @@ function App() {
       const blob = await jszip.generateAsync({ type: 'blob' })
       setProgress(null)
       setStatusMsg('完成！')
-      saveAs(blob, (taiwan ? 'tw_' : 'cn_') + rawfile.name)
+      deliver(blob, (taiwan ? 'tw_' : 'cn_') + rawfile.name)
     } else {
       const reader = new FileReader()
       reader.onload = (event) => {
         if (isTextFile(fileName) && event.target?.result) {
           const comment = func(event.target.result as string)
           const blob = new Blob([comment], { type: 'text/plain;charset=utf-8' })
-          saveAs(blob, (taiwan ? 'tw_' : 'cn_') + fileName)
+          deliver(blob, (taiwan ? 'tw_' : 'cn_') + fileName)
         }
       }
       reader.readAsText(rawfile)
@@ -131,8 +158,9 @@ function App() {
   const fileTransferRef = useRef(fileTransfer)
   fileTransferRef.current = fileTransfer
 
-  // paste2jpg (same origin on GitHub Pages) hands over its images as a zip. We announce this
-  // tab so it knows where to send, and only take zips addressed to us.
+  // paste2jpg and zipeditor (same origin on GitHub Pages) hand over zips. We announce this tab
+  // so they know where to send, and only take zips addressed to us. A zip with replyTo goes
+  // back to its sender once converted instead of being downloaded.
   useEffect(() => {
     if (typeof BroadcastChannel === 'undefined') return
     const id = crypto.randomUUID()
@@ -148,7 +176,15 @@ function App() {
         announce()
       } else if (msg?.type === 'zip' && msg.to === id && msg.file instanceof File) {
         channel.postMessage({ type: 'received', id: msg.id })
-        fileTransferRef.current(msg.file)
+        const reply = msg.replyTo
+        const deliver: Deliver | undefined =
+          typeof reply?.app === 'string' && typeof reply?.to === 'string'
+            ? (blob, name) => {
+                sendBack(reply, msg.id, blob, name)
+                setStatusMsg('完成！已傳回原本的分頁')
+              }
+            : undefined
+        fileTransferRef.current(msg.file, deliver)
       }
     }
     window.addEventListener('pagehide', bye)
